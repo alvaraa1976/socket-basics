@@ -12,17 +12,15 @@ io.on('connection', function (socket) {
     console.log('user connected via socket.io');
     
     socket.on('message', function (message) {
-        var timestamp = now.valueOf();
-        var timestampMoment = moment.utc(timestamp);
-        message.text = timestampMoment.local().format('h:mma') + ': ' + message.text;
-        
         console.log('Message received: ' + message.text);
         
+        message.timestamp = now.valueOf();
         io.emit('message', message);
     });
     
     socket.emit('message', {
-        text: 'Welcome to the chat application!'
+        text: 'Welcome to the Alvarado-Wong chat app!',
+        timestamp: now.valueOf()
     });
 });
 
